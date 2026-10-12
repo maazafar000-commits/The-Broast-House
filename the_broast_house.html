@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Broast House - Hot, Crispy & Delicious | Multan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        redBrand: '#D32F2F',
+                        redDark: '#9A0007',
+                        redBright: '#FF1744',
+                        orangeBrand: '#FF6D00',
+                        orangeLight: '#FF8F00',
+                        orangeAmber: '#FFAB00',
+                        creamWhite: '#FFFBF7',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFFBF7;
+        }
+        .hero-pattern {
+            background-color: #D32F2F;
+            background-image: radial-gradient(#FF6D00 1.5px, transparent 1.5px), radial-gradient(#FF8F00 1.5px, #D32F2F 1.5px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(211, 47, 47, 0.12);
+        }
+        .card-shadow-lg {
+            box-shadow: 0 20px 40px -10px rgba(255, 109, 0, 0.22);
+        }
+        .text-glow {
+            text-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+        /* Custom Scrollbar for Drawer */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6D00;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="bg-creamWhite text-slate-800 antialiased selection:bg-orangeBrand selection:text-white">
+
+    <!-- Non-sticky header as requested -->
+    <header class="bg-white border-b-4 border-orangeBrand py-5 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-redBrand via-redBright to-orangeBrand flex items-center justify-center shadow-lg text-white transform -rotate-3">
+                    <svg class="w-8 h-8 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black tracking-tight text-redBrand leading-none">THE BROAST HOUSE</h1>
+                    <p class="text-xs font-bold text-orangeBrand tracking-widest uppercase mt-0.5">Hot, Crispy & Gold</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleCartDrawer()" class="relative flex items-center space-x-2 bg-gradient-to-r from-redBrand to-orangeBrand text-white px-5 py-2.5 rounded-full font-bold shadow-md hover:brightness-110 transition-all">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span>My Order</span>
+                    <span id="cartBadgeCount" class="bg-white text-redBrand text-xs font-black px-2 py-0.5 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-pattern py-14 sm:py-20 text-white border-b-8 border-orangeBrand relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/30 text-white font-extrabold text-xs uppercase tracking-wider">
+                            <span>Freshly Fried Daily</span>
+                        </div>
+                        <h2 class="text-4xl sm:text-6xl font-black tracking-tight leading-none text-glow">
+                            MULTAN'S FINEST <br/><span class="text-orangeAmber">CRISPY BROAST</span> & FISH
+                        </h2>
+                        <p class="text-white/90 text-base sm:text-lg max-w-xl font-medium leading-relaxed">
+                            Taste the signature crunch! Savor our golden chicken broast, spicy zingers, tender finger fish, and loaded fries prepared fresh every evening.
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <div class="bg-white text-slate-800 px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 border-2 border-orangeAmber">
+                                <div class="w-10 h-10 rounded-xl bg-redBrand/10 text-redBrand flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Opening Hours</div>
+                                    <div class="text-sm font-black text-redBrand">5:00 PM – 3:00 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white text-slate-800 px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 border-2 border-orangeAmber">
+                                <div class="w-10 h-10 rounded-xl bg-orangeBrand/10 text-orangeBrand flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Address</div>
+                                    <div class="text-sm font-black text-slate-800">Opp. Imtiaz Mart, Buch Villas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Cartoonish Vector SVG Showcase (No Living Beings) -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-72 h-72 sm:w-88 sm:h-88 bg-white rounded-3xl p-6 shadow-2xl border-8 border-orangeAmber transform rotate-2 hover:rotate-0 transition-transform duration-300 flex items-center justify-center">
+                            <svg class="w-full h-full text-redBrand" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Bucket Base -->
+                                <path d="M40 70 L55 160 C56 168 64 175 73 175 L127 175 C136 175 144 168 145 160 L160 70 Z" fill="#D32F2F"/>
+                                <path d="M35 60 C35 55 45 50 100 50 C155 50 165 55 165 60 L160 72 C160 72 145 65 100 65 C55 65 40 72 40 72 Z" fill="#FF6D00"/>
+                                <!-- Fried Chicken Leg Illustrations -->
+                                <path d="M70 55 C65 35 85 25 95 40 C105 25 125 35 120 55 Z" fill="#FF8F00"/>
+                                <path d="M100 50 C105 30 125 20 135 35 C145 20 165 30 155 50 Z" fill="#FF6D00"/>
+                                <path d="M50 58 C45 38 65 28 75 43 C85 28 105 38 95 58 Z" fill="#FFAB00"/>
+                                <!-- Stripes -->
+                                <path d="M65 85 L70 155" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+                                <path d="M100 85 L100 155" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+                                <path d="M135 85 L130 155" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+                            </svg>
+                            <span class="absolute -bottom-4 bg-orangeBrand text-white font-black px-6 py-2 rounded-full text-sm uppercase tracking-wider shadow-lg border-2 border-white">
+                                Crunchy & Hot
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+                <span class="text-xs font-black uppercase tracking-widest text-redBrand bg-red-100 px-4 py-1.5 rounded-full border border-red-200">
+                    Sizzling Selection
+                </span>
+                <h3 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">OUR MENU</h3>
+                <p class="text-slate-600 text-sm font-medium">Click any item to add it directly to your instant WhatsApp order.</p>
+            </div>
+
+            <!-- Category Filter Controls -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12" id="categoryFilter">
+                <button onclick="filterCategory('all', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-redBrand text-white shadow-lg border-2 border-redBrand">All Items</button>
+                <button onclick="filterCategory('chicken', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-white text-slate-700 border-2 border-slate-200 hover:border-orangeBrand hover:text-orangeBrand">Broast & Chicken</button>
+                <button onclick="filterCategory('burgers', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-white text-slate-700 border-2 border-slate-200 hover:border-orangeBrand hover:text-orangeBrand">Burgers & Wraps</button>
+                <button onclick="filterCategory('fish', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-white text-slate-700 border-2 border-slate-200 hover:border-orangeBrand hover:text-orangeBrand">Fish Specials</button>
+                <button onclick="filterCategory('sides', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-white text-slate-700 border-2 border-slate-200 hover:border-orangeBrand hover:text-orangeBrand">Fries & Sides</button>
+                <button onclick="filterCategory('drinks', this)" class="cat-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all bg-white text-slate-700 border-2 border-slate-200 hover:border-orangeBrand hover:text-orangeBrand">Drinks & Sauces</button>
+            </div>
+
+            <!-- Non-repetitive Diverse Menu Layout -->
+            <div class="space-y-12" id="menuContainer">
+                
+                <!-- SECTION 1: Featured Hero Cards (Broast & Fish) -->
+                <div class="menu-group chicken fish">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-orangeBrand mb-4 border-l-4 border-orangeBrand pl-3">Signature Specialties</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Hero Card 1: Crispy Chicken Broast -->
+                        <div class="item-card chicken bg-gradient-to-br from-white to-red-50/40 rounded-3xl p-6 border-2 border-red-200 card-shadow flex flex-col justify-between relative overflow-hidden group">
+                            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-red-100 rounded-full opacity-40 group-hover:scale-125 transition-transform duration-500"></div>
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-black bg-redBrand text-white uppercase tracking-wider">Top Recommendation</span>
+                                    <div class="w-10 h-10 rounded-xl bg-red-100 text-redBrand flex items-center justify-center font-bold">
+                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 3 2 6 5 8v3h4v-3c3-2 5-5 5-9 0-4-3-7-7-7z"/></svg>
+                                    </div>
+                                </div>
+                                <h5 class="text-2xl font-black text-slate-900 mb-1">Crispy Chicken Broast</h5>
+                                <p class="text-xs text-slate-600 mb-4 leading-relaxed">Golden coated, juicy broast marinated with house spices & deep fried to crunchy perfection.</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-red-100 relative z-10">
+                                <div>
+                                    <span class="text-xs text-slate-400 font-bold uppercase block">Price</span>
+                                    <span class="text-2xl font-black text-redBrand">499 <span class="text-xs text-slate-500 font-bold">PKR</span></span>
+                                </div>
+                                <button onclick="addToCart('Crispy Chicken Broast', 499)" class="bg-redBrand hover:bg-redDark text-white px-5 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all flex items-center space-x-1">
+                                    <span>+ Add to Order</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Card 2: Finger Fish -->
+                        <div class="item-card fish bg-gradient-to-br from-white to-orange-50/40 rounded-3xl p-6 border-2 border-orange-200 card-shadow flex flex-col justify-between relative overflow-hidden group">
+                            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-orange-100 rounded-full opacity-40 group-hover:scale-125 transition-transform duration-500"></div>
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-black bg-orangeBrand text-white uppercase tracking-wider">Seafood Crunch</span>
+                                    <div class="w-10 h-10 rounded-xl bg-orange-100 text-orangeBrand flex items-center justify-center font-bold">
+                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                    </div>
+                                </div>
+                                <h5 class="text-2xl font-black text-slate-900 mb-1">Finger Fish</h5>
+                                <p class="text-xs text-slate-600 mb-4 leading-relaxed">Crispy boneless fish fingers served hot with signature dip sauce.</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 pt-4 border-t border-orange-100 relative z-10">
+                                <div class="bg-white p-3 rounded-2xl border border-orange-200 flex flex-col justify-between">
+                                    <div>
+                                        <span class="text-[10px] text-slate-500 font-extrabold uppercase block">Half (3 Pcs)</span>
+                                        <span class="text-lg font-black text-orangeBrand">799 PKR</span>
+                                    </div>
+                                    <button onclick="addToCart('Finger Fish (Half 3pcs)', 799)" class="mt-2 w-full bg-orangeBrand hover:bg-orangeLight text-white py-1.5 rounded-xl text-[11px] font-bold">
+                                        + Half
+                                    </button>
+                                </div>
+
+                                <div class="bg-white p-3 rounded-2xl border border-red-200 flex flex-col justify-between">
+                                    <div>
+                                        <span class="text-[10px] text-slate-500 font-extrabold uppercase block">Full Portion</span>
+                                        <span class="text-lg font-black text-redBrand">1,499 PKR</span>
+                                    </div>
+                                    <button onclick="addToCart('Finger Fish (Full Portion)', 1499)" class="mt-2 w-full bg-redBrand hover:bg-redDark text-white py-1.5 rounded-xl text-[11px] font-bold">
+                                        + Full
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 2: Horizontal Dual-Tone Cards (Burgers & Chicken Deals) -->
+                <div class="menu-group chicken burgers">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-redBrand mb-4 border-l-4 border-redBrand pl-3">Burgers, Wraps & Chicken Bites</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                        <!-- Item: Zinger Burger -->
+                        <div class="item-card burgers bg-white p-5 rounded-2xl border-2 border-slate-100 card-shadow flex flex-col justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <div class="w-10 h-10 rounded-lg bg-red-50 text-redBrand flex items-center justify-center mb-3 font-bold">
+                                    🍔
+                                </div>
+                                <h5 class="font-black text-slate-900 text-lg mb-1">Zinger Burger</h5>
+                                <p class="text-xs text-slate-500 mb-3">Crispy fried chicken fillet with mayo and fresh lettuce.</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                                <span class="font-black text-redBrand text-lg">399 <span class="text-xs text-slate-500">PKR</span></span>
+                                <button onclick="addToCart('Zinger Burger', 399)" class="bg-slate-900 hover:bg-redBrand text-white px-3 py-1.5 rounded-xl text-xs font-extrabold transition-colors">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Zinger Wrap -->
+                        <div class="item-card burgers bg-white p-5 rounded-2xl border-2 border-slate-100 card-shadow flex flex-col justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <div class="w-10 h-10 rounded-lg bg-orange-50 text-orangeBrand flex items-center justify-center mb-3 font-bold">
+                                    🌯
+                                </div>
+                                <h5 class="font-black text-slate-900 text-lg mb-1">Zinger Wrap</h5>
+                                <p class="text-xs text-slate-500 mb-3">Crispy chicken zinger strips wrapped in soft tortilla.</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                                <span class="font-black text-orangeBrand text-lg">499 <span class="text-xs text-slate-500">PKR</span></span>
+                                <button onclick="addToCart('Zinger Wrap', 499)" class="bg-slate-900 hover:bg-orangeBrand text-white px-3 py-1.5 rounded-xl text-xs font-extrabold transition-colors">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Crispy Wings -->
+                        <div class="item-card chicken bg-white p-5 rounded-2xl border-2 border-slate-100 card-shadow flex flex-col justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <div class="w-10 h-10 rounded-lg bg-red-50 text-redBrand flex items-center justify-center mb-3 font-bold">
+                                    🍗
+                                </div>
+                                <h5 class="font-black text-slate-900 text-lg mb-1">Crispy Wings</h5>
+                                <p class="text-xs text-slate-500 mb-3">Hot and crunchy seasoned fried chicken wings.</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                                <span class="font-black text-redBrand text-lg">649 <span class="text-xs text-slate-500">PKR</span></span>
+                                <button onclick="addToCart('Crispy Wings', 649)" class="bg-slate-900 hover:bg-redBrand text-white px-3 py-1.5 rounded-xl text-xs font-extrabold transition-colors">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Injected Chicken Nuggets -->
+                        <div class="item-card chicken bg-white p-5 rounded-2xl border-2 border-slate-100 card-shadow flex flex-col justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <div class="w-10 h-10 rounded-lg bg-orange-50 text-orangeBrand flex items-center justify-center mb-3 font-bold">
+                                    🧆
+                                </div>
+                                <h5 class="font-black text-slate-900 text-lg mb-1">Injected Nuggets</h5>
+                                <p class="text-xs text-slate-500 mb-3">Flavor-infused tender nuggets with crispy coating.</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                                <span class="font-black text-orangeBrand text-lg">649 <span class="text-xs text-slate-500">PKR</span></span>
+                                <button onclick="addToCart('Injected Chicken Nuggets', 649)" class="bg-slate-900 hover:bg-orangeBrand text-white px-3 py-1.5 rounded-xl text-xs font-extrabold transition-colors">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 3: Compact List Grid (Sides, Drinks, Extra Chicken) -->
+                <div class="menu-group chicken fish sides drinks">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-600 mb-4 border-l-4 border-slate-400 pl-3">Sides, Fish Shots, Naan & Beverages</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <!-- Item: Crispy Chicken Leg -->
+                        <div class="item-card chicken bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Crispy Chicken Leg</h6>
+                                <span class="text-xs text-slate-400">1 Piece Hot</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-redBrand text-sm">449 PKR</span>
+                                <button onclick="addToCart('Crispy Chicken Leg', 449)" class="bg-red-100 hover:bg-redBrand hover:text-white text-redBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Fish Hotshots -->
+                        <div class="item-card fish bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Fish Hotshots</h6>
+                                <span class="text-xs text-slate-400">Bite sized fish pops</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-orangeBrand text-sm">499 PKR</span>
+                                <button onclick="addToCart('Fish Hotshots', 499)" class="bg-orange-100 hover:bg-orangeBrand hover:text-white text-orangeBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: French Fries -->
+                        <div class="item-card sides bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">French Fries</h6>
+                                <span class="text-xs text-slate-400">Salted golden fries</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-redBrand text-sm">249 PKR</span>
+                                <button onclick="addToCart('French Fries', 249)" class="bg-red-100 hover:bg-redBrand hover:text-white text-redBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Loaded Fries -->
+                        <div class="item-card sides bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Loaded Fries</h6>
+                                <span class="text-xs text-slate-400">Cheese & chicken topped</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-orangeBrand text-sm">649 PKR</span>
+                                <button onclick="addToCart('Loaded Fries', 649)" class="bg-orange-100 hover:bg-orangeBrand hover:text-white text-orangeBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Dip Sauce -->
+                        <div class="item-card sides bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Dip Sauce</h6>
+                                <span class="text-xs text-slate-400">Special garlic mayo dip</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-redBrand text-sm">49 PKR</span>
+                                <button onclick="addToCart('Dip Sauce', 49)" class="bg-red-100 hover:bg-redBrand hover:text-white text-redBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Naan -->
+                        <div class="item-card sides bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Naan</h6>
+                                <span class="text-xs text-slate-400">Fresh oven flatbread</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-orangeBrand text-sm">49 PKR</span>
+                                <button onclick="addToCart('Naan', 49)" class="bg-orange-100 hover:bg-orangeBrand hover:text-white text-orangeBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: 345ml Drink -->
+                        <div class="item-card drinks bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">345ml Drink</h6>
+                                <span class="text-xs text-slate-400">Cold soft drink</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-redBrand text-sm">99 PKR</span>
+                                <button onclick="addToCart('345ml Drink', 99)" class="bg-red-100 hover:bg-redBrand hover:text-white text-redBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Diet Drinks 345ml -->
+                        <div class="item-card drinks bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-orangeBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Diet Drinks 345ml</h6>
+                                <span class="text-xs text-slate-400">Zero sugar option</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-orangeBrand text-sm">120 PKR</span>
+                                <button onclick="addToCart('Diet Drink 345ml', 120)" class="bg-orange-100 hover:bg-orangeBrand hover:text-white text-orangeBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item: Small Water -->
+                        <div class="item-card drinks bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between hover:border-redBrand transition-all">
+                            <div>
+                                <h6 class="font-extrabold text-slate-900 text-sm">Small Water</h6>
+                                <span class="text-xs text-slate-400">Sealed mineral water</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="font-black text-redBrand text-sm">90 PKR</span>
+                                <button onclick="addToCart('Small Water', 90)" class="bg-red-100 hover:bg-redBrand hover:text-white text-redBrand font-black px-2.5 py-1 rounded-lg text-xs">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-14 bg-white border-t-2 border-orange-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-br from-redBrand via-redBright to-orangeBrand rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                        <div class="lg:col-span-7 space-y-4">
+                            <span class="bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white border border-white/30">
+                                Location & Hours
+                            </span>
+                            <h3 class="text-3xl sm:text-5xl font-black tracking-tight leading-none">WHERE YOU CAN FIND US</h3>
+                            
+                            <div class="space-y-4 pt-2 text-white/95">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0 mt-1">
+                                        <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs uppercase font-extrabold text-white/80">Address</div>
+                                        <div class="text-xl font-extrabold">Opposite Imtiaz Mart, Buch Villas, Multan</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0 mt-1">
+                                        <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs uppercase font-extrabold text-white/80">Daily Timings</div>
+                                        <div class="text-lg font-extrabold">5:00 PM – 3:00 AM</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Call / Order Box -->
+                        <div class="lg:col-span-5 bg-white text-slate-800 p-6 sm:p-8 rounded-3xl shadow-xl border-4 border-orangeAmber text-center space-y-4">
+                            <h4 class="text-2xl font-black text-redBrand">PLACE AN ORDER</h4>
+                            <p class="text-xs text-slate-600 font-medium">Direct takeaway or home delivery in Buch Villas & Multan areas.</p>
+                            
+                            <div class="space-y-3 pt-2">
+                                <a href="tel:03058983333" class="w-full flex items-center justify-center space-x-2 py-3.5 bg-redBrand hover:bg-redDark text-white rounded-2xl font-black text-sm shadow-lg transition-transform hover:scale-102">
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                                    <span>Call 0305-8983333</span>
+                                </a>
+
+                                <button onclick="toggleCartDrawer()" class="w-full flex items-center justify-center space-x-2 py-3.5 bg-orangeBrand hover:bg-orangeLight text-white rounded-2xl font-black text-sm shadow-lg transition-transform hover:scale-102">
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                    <span>Build WhatsApp Order</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-300 py-10 border-t-4 border-redBrand">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <h4 class="text-2xl font-black text-white">THE BROAST HOUSE</h4>
+                <p class="text-xs text-slate-400">Opposite Imtiaz Mart, Buch Villas, Multan</p>
+            </div>
+
+            <div class="text-center text-xs text-slate-400 space-y-1">
+                <p class="font-bold text-orangeBrand">Timings: 5:00 PM to 3:00 AM</p>
+                <p>Call Orders: <a href="tel:03058983333" class="underline font-extrabold text-white">0305-8983333</a></p>
+            </div>
+
+            <div class="text-xs text-slate-500">
+                &copy; 2026 The Broast House Multan.
+            </div>
+        </div>
+    </footer>
+
+    <div id="cartDrawer" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity">
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between border-l-4 border-redBrand">
+            
+            <!-- Drawer Header -->
+            <div class="p-5 bg-gradient-to-r from-redBrand to-orangeBrand text-white flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <h4 class="font-black text-lg uppercase tracking-wide">Your Order List</h4>
+                </div>
+                <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white font-black">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Drawer Items List -->
+            <div class="p-5 flex-1 overflow-y-auto space-y-4" id="cartItemList">
+                <div id="emptyCartMessage" class="text-center py-12 text-slate-400 space-y-3">
+                    <div class="text-4xl">🍗</div>
+                    <p class="text-sm font-bold">Your cart is currently empty.</p>
+                    <p class="text-xs text-slate-400">Click "+ Add" on any menu item to build your WhatsApp order!</p>
+                </div>
+            </div>
+
+            <!-- Drawer Footer / WhatsApp Dispatch Button -->
+            <div class="p-5 border-t border-slate-200 bg-orange-50 space-y-4">
+                <div class="flex items-center justify-between text-slate-900">
+                    <span class="font-bold text-sm">Total Amount:</span>
+                    <span class="text-2xl font-black text-redBrand" id="cartTotalDisplay">0 PKR</span>
+                </div>
+
+                <button onclick="sendWhatsAppOrder()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-sm uppercase tracking-wider shadow-xl flex items-center justify-center space-x-2 transition-transform active:scale-95">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></button>
+                    <span>Send Order via WhatsApp</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Shopping cart state
+        let cart = [];
+
+        // Category Filter Logic
+        function filterCategory(category, buttonEl) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-redBrand', 'text-white', 'shadow-lg', 'border-redBrand');
+                btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+            });
+
+            buttonEl.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+            buttonEl.classList.add('bg-redBrand', 'text-white', 'shadow-lg', 'border-redBrand');
+
+            const items = document.querySelectorAll('.item-card');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Toggle Drawer
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Add to Order Cart
+        function addToCart(itemName, price) {
+            const existingItem = cart.find(item => item.name === itemName);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ name: itemName, price: price, qty: 1 });
+            }
+            updateCartUI();
+            
+            // Show subtle feedback
+            const cartDrawer = document.getElementById('cartDrawer');
+            if(cartDrawer.classList.contains('hidden')) {
+                toggleCartDrawer();
+            }
+        }
+
+        // Remove item or change qty
+        function updateQty(itemName, delta) {
+            const item = cart.find(i => i.name === itemName);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.name !== itemName);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Render Cart UI
+        function updateCartUI() {
+            const cartList = document.getElementById('cartItemList');
+            const emptyMsg = document.getElementById('emptyCartMessage');
+            const totalDisplay = document.getElementById('cartTotalDisplay');
+            const badgeCount = document.getElementById('cartBadgeCount');
+
+            let total = 0;
+            let totalCount = 0;
+
+            // Clear previous UI except empty message placeholder
+            cartList.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartList.appendChild(emptyMsg);
+                emptyMsg.style.display = 'block';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    totalCount += item.qty;
+
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200';
+                    row.innerHTML = `
+                        <div class="flex-1 pr-2">
+                            <h6 class="font-extrabold text-slate-800 text-xs">${item.name}</h6>
+                            <span class="text-xs text-redBrand font-black">${item.price} PKR</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQty('${item.name}', -1)" class="w-7 h-7 rounded-lg bg-red-100 text-redBrand font-black flex items-center justify-center">-</button>
+                            <span class="text-xs font-extrabold text-slate-800">${item.qty}</span>
+                            <button onclick="updateQty('${item.name}', 1)" class="w-7 h-7 rounded-lg bg-orange-100 text-orangeBrand font-black flex items-center justify-center">+</button>
+                        </div>
+                    `;
+                    cartList.appendChild(row);
+                });
+            }
+
+            totalDisplay.innerText = `${total.toLocaleString()} PKR`;
+            badgeCount.innerText = totalCount;
+        }
+
+        // Dispatch WhatsApp order pre-filled
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Please add at least one item to your order list first.");
+                return;
+            }
+
+            let message = "Hello *The Broast House*, I would like to place an order:\n\n";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `${index + 1}. *${item.name}* x ${item.qty} = ${subtotal} PKR\n`;
+            });
+
+            message += `\n*Total Amount:* ${total.toLocaleString()} PKR`;
+            message += `\n\n*Delivery/Pickup Address:* (Please write address or Buch Villas plot # here)`;
+
+            const encodedMsg = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/923058983333?text=${encodedMsg}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
